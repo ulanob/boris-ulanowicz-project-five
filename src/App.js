@@ -2,13 +2,15 @@ import { Component } from 'react';
 import './App.css';
 import axios from 'axios';
 import logo from './assets/endangerment.png';
-import { render } from '@testing-library/react';
+import Input from "./Input.js"
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      questionsArray: []
+      questionsArray: [],
+      userScore: 0,
+      isQuestionSelected: false
     }
   }
 
@@ -22,43 +24,49 @@ class App extends Component {
       }
     })
       .then((res) => {
-        this.setState({
-          questionsArray: res.data
+        let fixQuestionsArray = res.data;
+
+        // some question objects have a value of null, so changing them to 200
+        fixQuestionsArray.filter((object) => {
+          if (object.value == null) {
+            object.value = 200
+          }
+          this.setState({
+            questionsArray: fixQuestionsArray
+          })
         })
-        // console.log(this.state.questionsArray)
+        console.log(this.state.questionsArray);
       })
   }
 
+
+
   handleClick = () => {
-    console.log('clicked')
-    return (
-      <p>Hello</p>
-    )
+    console.log('clicked', this);
+    this.setState({
+      isQuestionSelected: !this.state.isQuestionSelected
+    })
   }
-
-  formatValue = (value) => {
-    if (value == null) {
-      return value = 200
-    } else {
-      return value
-    }
-  }
-
-
 
   render() {
     return (
       <div className="App">
-        <img src={logo} alt="the famous endangerment logo" />
-        {
-          this.state.questionsArray.map((i) => {
-            return (
-              <div key="this.state.questionsArray.id" className="questionBox">
-                <p onClick={this.handleClick}>${this.formatValue(i.value)}</p>
-              </div>
-            )
-          })
-        }
+        <img src={logo} alt="logo from the famous household game show 'Endangerment'" />
+        <div className="gameBoard">
+          {
+            this.state.questionsArray.map((gameQuestions) => {
+              return (
+                <div
+                  key={gameQuestions.id} 
+                  className="question"
+                  onClick={this.handleClick}>
+                  <p>${gameQuestions.value}</p>
+                  <p>{gameQuestions.category.title}</p> 
+                </div>
+              )
+            })
+          }
+        </div>
       </div>
     );
   }
