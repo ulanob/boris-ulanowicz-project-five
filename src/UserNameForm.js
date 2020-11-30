@@ -4,9 +4,9 @@ class UserNameForm extends Component {
   render() {
     return(
       <form action="">
-        <label htmlFor="getUserName" onClick={this.getName}>What is your Name</label>
-        <input type="text" name="userName" />
-        <button type="submit"></button>
+        <label htmlFor="getUserName">What is your Name?</label>
+        <input type="text" name="userName"/>
+        <button type="submit" onClick={this.props.getName}>Submit</button>
       </form>
     )
   }
