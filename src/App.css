@@ -1,26 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap');
+
+html {
+  font-size: 62.5%;
+  font-family: 'Libre Baskerville', serif;
+}
+
+p {
+  font-size: 2.2rem;
+}
+span {
+  font-size: 1.5rem;
+  line-height: inherit;
+}
+
 .App {
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: purple;
+  background-image: url(./assets/samuel-pereira-uf2nnANWa8Q-unsplash.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
 }
 .App img {
-  width: 50%;
+  width: 60%;
+  min-height: 100px;
+  margin: 50px 0;
 }
 
 .gameBoard {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   margin: 0 auto;
-  background-color: grey;
+  background-color: #202020;
 }
 .question {
-  background-color: blue;
+  background-color: #102176;
   border: 5px solid black;
   margin: 5px;
   font-weight: 1000;
-  color: yellow;
+  color: #FFCC00;
   max-width: 200px;
-  height: 200px;
+  height: 150px;
 }
