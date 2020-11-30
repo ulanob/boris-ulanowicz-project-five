@@ -2,6 +2,7 @@ import { Component } from 'react';
 import './App.css';
 import axios from 'axios';
 import logo from './assets/endangerment.png';
+import UserNameForm from './UserNameForm';
 
 class App extends Component {
   constructor() {
@@ -44,10 +45,10 @@ class App extends Component {
     // })
   }
 
-  handleClick = (e, data) => {
+  handleClick = () => {
     console.log('clicked');
     console.log(this);
-    console.log(e, data);
+    console.log(this.gameQuestion.id);
     // find question that was clicked on
     // append question, and a form that takes user input
   }
@@ -56,11 +57,7 @@ class App extends Component {
     return (
       <div className="App">
         <img src={logo} alt="logo from the famous household game show 'Endangerment'" />
-        <form action="">
-          <label htmlFor="getUserName" onClick={this.getName}>What is your Name</label>
-          <input type="text" name="userName"/>
-          <button type="submit"></button>
-        </form>
+        <UserNameForm />
         <div className="gameBoard">
           {
             this.state.questionsArray.map((gameQuestion) => {
@@ -68,7 +65,7 @@ class App extends Component {
                 <div
                   key={gameQuestion.id}
                   className="question"
-                  onClick={this.handleClick, console.log(this)}>
+                  onClick={this.handleClick}>
                   <p><span>$</span>{gameQuestion.value}</p>
                   <p>{gameQuestion.category.title}</p>
                 </div>
