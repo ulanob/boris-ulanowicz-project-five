@@ -12,6 +12,7 @@ class App extends Component {
     this.state = {
       questionsArray: [],
       userNameInput: '',
+      userName: '',
       userAnswerInput: '',
       userSubmittedAnswer: '',
       userScore: 0,
@@ -74,8 +75,12 @@ class App extends Component {
   }
 
   evaluate = () => {
-    if(this.state.userSubmittedAnswer == this.state.questionsArray[this.state.currentIndex].answer) {
+    if (this.state.userSubmittedAnswer == this.state.questionsArray[this.state.currentIndex].answer.trim().toLowerCase()) {
       console.log('correct')
+      this.setState({
+        userScore: this.state.userScore + this.state.questionsArray[this.state.currentIndex].value
+      })
+      console.log(this.state.userScore);
     }
   }
 
@@ -91,7 +96,7 @@ class App extends Component {
                 <div
                   key={gameQuestion.id}
                   className={`question question${i}`}
-                  onClick={() => {this.handleClick(i)}}>
+                  onClick={() => { this.handleClick(i) }}>
                   <p><span>$</span>{gameQuestion.value}</p>
                   <p>{gameQuestion.category.title}</p>
                 </div>
@@ -99,22 +104,32 @@ class App extends Component {
             })
           }
         </div>
-        <div 
-        className={`userInput ${this.state.isBoxVisible ? "" : "hidden"}`}
-        >
-          <form action="">
-            <label htmlFor="">{this.state.currentQuestion}</label>
-            <input 
-              placeholder="What is..." 
-              type="text"
-              onChange={(e)=> {this.handleInputChange(e)}}
+
+        <div className="playArea">
+          <div
+            className={`userBooth ${this.state.isBoxVisible ? "" : "hidden"}`}>
+            <p>${this.state.userScore}</p>
+            {this.state.userName}
+          </div>
+
+          <div
+            className={`userInput ${this.state.isBoxVisible ? "" : "hidden"}`}
+          >
+            <form action="">
+              <label htmlFor="">{this.state.currentQuestion}</label>
+              <input
+                placeholder="What is..."
+                type="text"
+                onChange={(e) => { this.handleInputChange(e) }}
               />
-            <button onClick={ (e) => {
-              e.preventDefault();
-              this.takeAnswer();
-              this.evaluate();
+              <button onClick={(e) => {
+                e.preventDefault();
+                this.takeAnswer();
+                this.evaluate();
               }}>Submit</button>
-          </form>
+            </form>
+          </div>
+
         </div>
       </div>
     );

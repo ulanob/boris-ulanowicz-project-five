@@ -65,7 +65,11 @@ span {
   margin: 0 auto;
   background-color: #202020;
 }
-.question, .userInput {
+.playArea {
+  display: flex;
+}
+
+.question, .userInput, .userBooth {
   background-color: #102176;
   border: 5px solid black;
   margin: 5px;
@@ -74,12 +78,21 @@ span {
   width: 200px;
 }
 
-.userInput {
+.userInput, .userBooth {
   width: 400px;
   min-height: 300px;
   padding: 20px;
   margin-top: 20px;
 }
+
+.userBooth p{
+  font-size: 4rem;
+  color: white;
+  padding: 0;
+  border-bottom: 5px solid black;
+  margin: 0 0 5px 0;
+}
+
 .userInput label {
   color: #FFCC00;
   font-size: 2.2rem;
