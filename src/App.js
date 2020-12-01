@@ -4,7 +4,7 @@ import axios from 'axios';
 import logo from './assets/endangerment.png';
 import UserNameForm from './UserNameForm';
 // import UserAnswer from './UserAnswer';
-// import Question from './Question';
+import GameBoard from './GameBoard.js';
 
 class App extends Component {
   constructor() {
@@ -24,7 +24,7 @@ class App extends Component {
 
   componentDidMount() {
     axios({
-      url: `http://jservice.io/api/random`,
+      url: `https://jservice.io/api/random`,
       method: `GET`,
       responseType: `json`,
       params: {
@@ -103,6 +103,13 @@ class App extends Component {
           nameInput={(e)=>{this.handleNameInputChange(e)}} 
           takeUserName={this.takeUserName}/>
 
+        {/* <GameBoard 
+          userName={this.state.userName}
+          questionsArray={this.state.questionsArray}
+          handleClick={(i)=>{this.handleClick(i)}}
+        /> */}
+
+
         <div className={`gameBoard ${this.state.userName ? "" : "hidden"}`}>
           {/* add conditional: if this.state.userName !== '' then add className hidden */}
           {
@@ -118,20 +125,26 @@ class App extends Component {
               )
             })
           }
-        </div>
+        </div> 
+
+
+
+
 
         <div className="playArea">
           {/* component can go in here, put visibility conditional in classname above */}
 
           <div
-            className={`userBooth ${this.state.isBoxVisible ? "" : "hidden"}`}>
-            <p>${this.state.userScore}</p>
-            <h2>{this.state.userName}</h2>
+            // className={`userBooth ${this.state.isBoxVisible ? "" : "hidden"}`}>
+            className="userBooth">
+            <p className={`${this.state.isBoxVisible ? "" : "hidden"}`}>${this.state.userScore}</p>
+            <h2>{this.state.userName? this.state.userName : "Welcome to Endangerment! Now entering the studio is today's contestant: you!"}</h2>
           </div>
 
           <div
             className={`userInput ${this.state.isBoxVisible ? "" : "hidden"}`}
           >
+            {/* add category and value here? */}
             <form action="">
               <label htmlFor="">{this.state.currentQuestion}</label>
               <input
@@ -143,7 +156,7 @@ class App extends Component {
                 e.preventDefault();
                 this.takeAnswer();
                 this.evaluate();
-              }}>Submit</button>
+              }}>Answer</button>
             </form>
           </div>
 

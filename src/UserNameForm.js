@@ -3,7 +3,7 @@ import { Component } from 'react';
 class UserNameForm extends Component {
   render() {
     return(
-      <form action="">
+      <form className="userNameForm" action="">
         <label htmlFor="">Enter Your Name</label>
         <input
           // name for input, link to label
@@ -13,7 +13,7 @@ class UserNameForm extends Component {
         <button onClick={(e) => {
           e.preventDefault();
           this.props.takeUserName();
-        }}>Submit</button>
+        }}>Enter</button>
       </form>
     )
   }

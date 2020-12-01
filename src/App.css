@@ -41,6 +41,9 @@ span {
   margin: 50px 0;
 }
 
+.userNameForm {
+  margin-bottom: 20px;
+}
 
 label {
   font-size: 2.2rem;
@@ -55,7 +58,10 @@ label {
   font-size: 2.2rem;
 }
 
+
+
 .App button  {
+  width: 100px;
   vertical-align: top;
 }
 
@@ -93,7 +99,7 @@ label {
 }
 
 .userBooth h2 {
-  font-size: 5rem;
+  font-size: 4rem;
   color: white;
 }
 
