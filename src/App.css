@@ -17,6 +17,7 @@ html {
 
 p {
   font-size: 2.2rem;
+  text-transform: uppercase;
 }
 span {
   font-size: 1.5rem;
@@ -39,11 +40,10 @@ span {
   margin: 50px 0;
 }
 .App form {
-  height: 50px;
   margin-bottom: 20px;
 }
 
-.App label {
+.userNameForm label {
   font-size: 2.2rem;
   color: white;
   margin-right: 20px;
@@ -72,7 +72,6 @@ span {
   font-weight: 1000;
   color: #FFCC00;
   width: 200px;
-  height: 150px;
 }
 
 .userInput {
@@ -83,6 +82,7 @@ span {
 }
 .userInput label {
   color: #FFCC00;
+  font-size: 2.2rem;
   margin-bottom: 20px;
 }
 

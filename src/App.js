@@ -11,15 +11,15 @@ class App extends Component {
     super();
     this.state = {
       questionsArray: [],
-      userName: '',
+      userNameInput: '',
+      userAnswerInput: '',
+      userSubmittedAnswer: '',
       userScore: 0,
       currentQuestion: '',
-      currentIndex: undefined,
+      currentIndex: null,
       isBoxVisible: false,
-      takeAnswer: ()=>{}
+      // takeAnswer: ()=>{}
     }
-    this.handleClick = this.handleClick.bind(this);
-    this.takeAnswer = this.takeAnswer.bind(this);
   }
 
   componentDidMount() {
@@ -54,12 +54,29 @@ class App extends Component {
     this.setState({
       currentIndex: i,
       currentQuestion: this.state.questionsArray[i].question,
-      isBoxVisible: this.state.isBoxVisible = true
+      isBoxVisible: this.state.isBoxVisible = true,
     })
   }
 
-  takeAnswer = () => {
-    console.log('yay');
+  handleInputChange = (e) => {
+    this.setState({
+      userAnswerInput: e.target.value
+    })
+    console.log(this.state.userAnswerInput)
+  }
+
+  takeAnswer = (e) => {
+    this.setState({
+      userSubmittedAnswer: this.state.userAnswerInput.trim().toLowerCase()
+    })
+    // how come it only updates after second click?
+    console.log(this.state.userSubmittedAnswer)
+  }
+
+  evaluate = () => {
+    if(this.state.userSubmittedAnswer == this.state.questionsArray[this.state.currentIndex].answer) {
+      console.log('correct')
+    }
   }
 
   render() {
@@ -89,11 +106,14 @@ class App extends Component {
             <label htmlFor="">{this.state.currentQuestion}</label>
             <input 
               placeholder="What is..." 
-              type="text"/>
-            <button 
-            onClick={ (e) => {
+              type="text"
+              onChange={(e)=> {this.handleInputChange(e)}}
+              />
+            <button onClick={ (e) => {
+              e.preventDefault();
               this.takeAnswer();
-              e.preventDefault();}}>Answer</button>
+              this.evaluate();
+              }}>Submit</button>
           </form>
         </div>
       </div>
