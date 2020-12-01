@@ -19,7 +19,6 @@ class App extends Component {
       currentQuestion: '',
       currentIndex: null,
       isBoxVisible: false,
-      // takeAnswer: ()=>{}
     }
   }
 
@@ -46,9 +45,15 @@ class App extends Component {
         // console.log(this.state.questionsArray);
       })
   }
-  getName = (e) => {
-    e.preventDefault();
-    console.log('clicked');
+  handleNameInputChange = (e) => {
+    this.setState({
+      userNameInput: e.target.value
+    })
+  }
+  takeUserName = () => {
+    this.setState({
+      userName: this.state.userNameInput.trim()
+    })
   }
 
   handleClick = (i) => {
@@ -63,10 +68,10 @@ class App extends Component {
     this.setState({
       userAnswerInput: e.target.value
     })
-    console.log(this.state.userAnswerInput)
+    // console.log(this.state.userAnswerInput)
   }
 
-  takeAnswer = (e) => {
+  takeAnswer = () => {
     this.setState({
       userSubmittedAnswer: this.state.userAnswerInput.trim().toLowerCase()
     })
@@ -80,16 +85,26 @@ class App extends Component {
       this.setState({
         userScore: this.state.userScore + this.state.questionsArray[this.state.currentIndex].value
       })
-      console.log(this.state.userScore);
+    } else if (this.state.userSubmittedAnswer !== this.state.questionsArray[this.state.currentIndex].answer.trim().toLowerCase()) {
+      this.setState({
+        userScore: this.state.userScore - this.state.questionsArray[this.state.currentIndex].value
+      })
     }
+
   }
 
   render() {
     return (
       <div className="App">
+
         <img src={logo} alt="logo from the famous household game show 'Endangerment'" />
-        <UserNameForm takeName={this.getName} />
-        <div className="gameBoard">
+
+        <UserNameForm 
+          nameInput={(e)=>{this.handleNameInputChange(e)}} 
+          takeUserName={this.takeUserName}/>
+
+        <div className={`gameBoard ${this.state.userName ? "" : "hidden"}`}>
+          {/* add conditional: if this.state.userName !== '' then add className hidden */}
           {
             this.state.questionsArray.map((gameQuestion, i) => {
               return (
@@ -106,10 +121,12 @@ class App extends Component {
         </div>
 
         <div className="playArea">
+          {/* component can go in here, put visibility conditional in classname above */}
+
           <div
             className={`userBooth ${this.state.isBoxVisible ? "" : "hidden"}`}>
             <p>${this.state.userScore}</p>
-            {this.state.userName}
+            <h2>{this.state.userName}</h2>
           </div>
 
           <div

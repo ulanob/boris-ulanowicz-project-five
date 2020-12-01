@@ -25,6 +25,7 @@ span {
 }
 
 .App {
+  min-height: 100vh;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -39,15 +40,14 @@ span {
   min-height: 100px;
   margin: 50px 0;
 }
-.App form {
-  margin-bottom: 20px;
-}
 
-.userNameForm label {
+
+label {
   font-size: 2.2rem;
   color: white;
   margin-right: 20px;
 }
+
 
 .App input, button {
   width: 300px;
@@ -62,7 +62,7 @@ span {
 .gameBoard {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  margin: 0 auto;
+  margin: 20px auto;
   background-color: #202020;
 }
 .playArea {
@@ -82,7 +82,6 @@ span {
   width: 400px;
   min-height: 300px;
   padding: 20px;
-  margin-top: 20px;
 }
 
 .userBooth p{
@@ -93,11 +92,27 @@ span {
   margin: 0 0 5px 0;
 }
 
+.userBooth h2 {
+  font-size: 5rem;
+  color: white;
+}
+
 .userInput label {
   color: #FFCC00;
   font-size: 2.2rem;
-  margin-bottom: 20px;
+  /* margin-top: 20px; */
 }
+
+.userInput input, 
+.userInput button {
+  display: block;
+  margin: 0 auto;
+}
+
+.userInput input {
+  margin-top: 20px;
+}
+
 
 .hidden {
   display: none;
