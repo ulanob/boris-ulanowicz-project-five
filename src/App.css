@@ -123,3 +123,7 @@ label {
 .hidden {
   display: none;
 }
+
+.answered {
+  pointer-events: none;
+}

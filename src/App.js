@@ -5,12 +5,16 @@ import logo from './assets/endangerment.png';
 import UserNameForm from './UserNameForm';
 // import UserAnswer from './UserAnswer';
 import GameBoard from './GameBoard.js';
+import firebase from './firebase.js'
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
       questionsArray: [],
+      answeredArray: [],
+      correctAnswers: [],
+      incorrectAnswers: [],
       userNameInput: '',
       userName: '',
       userAnswerInput: '',
@@ -19,10 +23,14 @@ class App extends Component {
       currentQuestion: '',
       currentIndex: null,
       isBoxVisible: false,
+      isAnswered: false,
+      leaderboard: []
     }
+
   }
 
   componentDidMount() {
+    // API Call
     axios({
       url: `https://jservice.io/api/random`,
       method: `GET`,
@@ -30,8 +38,7 @@ class App extends Component {
       params: {
         count: 20
       }
-    })
-      .then((res) => {
+    }).then((res) => {
         let fixQuestionsArray = res.data;
         // some question objects have a value of null, so changing them to 200
         fixQuestionsArray.filter((object) => {
@@ -43,8 +50,15 @@ class App extends Component {
           })
         })
         // console.log(this.state.questionsArray);
-      })
+    })
+  // Connecting Firebase
+    const dbRef = firebase.database().ref();
+    dbRef.on('value', (data) => {
+      const firebaseDataObj = data.val();
+      console.log(firebaseDataObj)
+    })
   }
+
   handleNameInputChange = (e) => {
     this.setState({
       userNameInput: e.target.value
@@ -60,8 +74,35 @@ class App extends Component {
     this.setState({
       currentIndex: i,
       currentQuestion: this.state.questionsArray[i].question,
-      isBoxVisible: this.state.isBoxVisible = true,
+      isBoxVisible: this.state.isBoxVisible = true
     })
+    // console.log(this.state.currentIndex)
+
+    // push string of 'currentIndex' to answeredArray in state 
+    const array = this.state.answeredArray;
+    array.push(`${this.state.currentIndex}`);
+    this.setState({
+      answeredArray: array
+    })
+    console.log(this.state.answeredArray)
+  }
+
+  addClass = (i, e) => {
+    // using indexOf to check if currentIndex is in answeredArray
+    let findIndex = this.state.answeredArray.indexOf(`${i}`);
+    console.log(findIndex, i, this.state.answeredArray);
+    if ((findIndex > -1) && (e.target.id == i)) {
+      // yes, current index number is in the answers array
+      return true;
+      // this.setState({
+      //   isAnswered: true,
+      // })
+    } else {
+      return false;
+      // this.setState({
+      //   isAnswered: false
+      // })
+    }
   }
 
   handleInputChange = (e) => {
@@ -85,13 +126,22 @@ class App extends Component {
       this.setState({
         userScore: this.state.userScore + this.state.questionsArray[this.state.currentIndex].value
       })
+      // add to correct array
     } else if (this.state.userSubmittedAnswer !== this.state.questionsArray[this.state.currentIndex].answer.trim().toLowerCase()) {
       this.setState({
         userScore: this.state.userScore - this.state.questionsArray[this.state.currentIndex].value
       })
+      // add to incorrect array
     }
 
   }
+
+  finalScoreSubmit = (e) => {
+    e.preventDefault();
+    console.log('wow')
+  }
+
+
 
   render() {
     return (
@@ -99,37 +149,17 @@ class App extends Component {
 
         <img src={logo} alt="logo from the famous household game show 'Endangerment'" />
 
-        <UserNameForm 
-          nameInput={(e)=>{this.handleNameInputChange(e)}} 
-          takeUserName={this.takeUserName}/>
+        <UserNameForm
+          nameInput={(e) => { this.handleNameInputChange(e) }}
+          takeUserName={this.takeUserName} />
 
-        {/* <GameBoard 
+        <GameBoard
           userName={this.state.userName}
           questionsArray={this.state.questionsArray}
-          handleClick={(i)=>{this.handleClick(i)}}
-        /> */}
-
-
-        <div className={`gameBoard ${this.state.userName ? "" : "hidden"}`}>
-          {/* add conditional: if this.state.userName !== '' then add className hidden */}
-          {
-            this.state.questionsArray.map((gameQuestion, i) => {
-              return (
-                <div
-                  key={gameQuestion.id}
-                  className={`question question${i}`}
-                  onClick={() => { this.handleClick(i) }}>
-                  <p><span>$</span>{gameQuestion.value}</p>
-                  <p>{gameQuestion.category.title}</p>
-                </div>
-              )
-            })
-          }
-        </div> 
-
-
-
-
+          handleClick={(i) => { this.handleClick(i) }}
+          addClass={(i, e) => { this.addClass(i, e) }}
+          isAnswered={this.state.isAnswered}
+        />
 
         <div className="playArea">
           {/* component can go in here, put visibility conditional in classname above */}
@@ -138,7 +168,7 @@ class App extends Component {
             // className={`userBooth ${this.state.isBoxVisible ? "" : "hidden"}`}>
             className="userBooth">
             <p className={`${this.state.isBoxVisible ? "" : "hidden"}`}>${this.state.userScore}</p>
-            <h2>{this.state.userName? this.state.userName : "Welcome to Endangerment! Now entering the studio is today's contestant: you!"}</h2>
+            <h2>{this.state.userName ? this.state.userName : "Welcome to Endangerment! Now entering the studio is today's contestant: you!"}</h2>
           </div>
 
           <div
@@ -159,7 +189,10 @@ class App extends Component {
               }}>Answer</button>
             </form>
           </div>
-
+          <form onSubmit={this.finalScoreSubmit}>
+            <label htmlFor=""></label>
+            <button>My work is done here</button>
+          </form>
         </div>
       </div>
     );
