@@ -58,8 +58,6 @@ label {
   font-size: 2.2rem;
 }
 
-
-
 .App button  {
   width: 100px;
   vertical-align: top;
@@ -75,7 +73,7 @@ label {
   display: flex;
 }
 
-.question, .userInput, .userBooth {
+.question, .userInput, .userBooth, .leaderboard {
   background-color: #102176;
   border: 5px solid black;
   margin: 5px;
@@ -119,6 +117,12 @@ label {
   margin-top: 20px;
 }
 
+.finalScoreForm {
+  display: block;
+}
+.finalScoreForm button {
+  width: 100%;
+}
 
 .hidden {
   display: none;
@@ -126,4 +130,36 @@ label {
 
 .answered {
   pointer-events: none;
+}
+
+.leaderboard {
+  background-color: black;
+  width: 400px;
+  margin-top: 4rem;
+}
+
+.leaderboard h2 {
+  font-size: 4rem;
+  color: white;
+  padding-bottom: 3rem;
+  /* border-bottom: 5px solid white; */
+  margin-bottom: 0;
+}
+
+.leaderboard p {
+  color: white;
+  padding: 2rem;
+  margin: 0;
+}
+
+.leaderboard p:first-of-type {
+  background-color: #ffd900ce;
+}
+
+.leaderboard p:nth-child(3) {
+  background-color: #c0c0c0c0;
+}
+
+.leaderboard p:nth-child(4) {
+  background-color: #804A00;
 }

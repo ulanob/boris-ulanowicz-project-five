@@ -5,7 +5,8 @@ import logo from './assets/endangerment.png';
 import UserNameForm from './UserNameForm';
 // import UserAnswer from './UserAnswer';
 import GameBoard from './GameBoard.js';
-import firebase from './firebase.js'
+import firebase from './firebase.js';
+import Leaderboard from './Leaderboard.js';
 
 class App extends Component {
   constructor() {
@@ -24,7 +25,8 @@ class App extends Component {
       currentIndex: null,
       isBoxVisible: false,
       isAnswered: false,
-      leaderboard: []
+      leaderboard: [],
+      // scores: {}
     }
 
   }
@@ -56,6 +58,34 @@ class App extends Component {
     dbRef.on('value', (data) => {
       const firebaseDataObj = data.val();
       console.log(firebaseDataObj)
+      const processedScores = [];
+      for (let key in firebaseDataObj) {
+        const formattedObj = {
+          id: key,
+          score: firebaseDataObj[key].score,
+          name: firebaseDataObj[key].userName
+        }
+        processedScores.push(formattedObj)
+        // console.log(processedScores)
+        const sortedNames = processedScores.sort((a, b) => {
+          return [b.score] - [a.score]
+        })
+        // console.log(sortedNames)
+        this.setState({
+          leaderboard: sortedNames
+        })
+      }
+      console.log(this.state.leaderboard);
+
+
+
+
+
+      // const sortedScores = Object.values(firebaseDataObj).sort((a,b)=> {
+      //   return firebaseDataObj[a] - firebaseDataObj[b]
+      // });
+      // console.log(sortedScores);
+      
     })
   }
 
@@ -138,9 +168,15 @@ class App extends Component {
 
   finalScoreSubmit = (e) => {
     e.preventDefault();
-    console.log('wow')
-  }
+    const userNameAndScore = {
+      userName: `${this.state.userName}`,
+      score: this.state.userScore
+    }
 
+    console.log(userNameAndScore);
+    const dbRef = firebase.database().ref();
+    dbRef.push(userNameAndScore);
+  }
 
 
   render() {
@@ -168,7 +204,7 @@ class App extends Component {
             // className={`userBooth ${this.state.isBoxVisible ? "" : "hidden"}`}>
             className="userBooth">
             <p className={`${this.state.isBoxVisible ? "" : "hidden"}`}>${this.state.userScore}</p>
-            <h2>{this.state.userName ? this.state.userName : "Welcome to Endangerment! Now entering the studio is today's contestant: you!"}</h2>
+            <h2>{this.state.userName ? this.state.userName : "Welcome to Endangerment! Now entering the studio is today's contestant: You!"}</h2>
           </div>
 
           <div
@@ -189,11 +225,13 @@ class App extends Component {
               }}>Answer</button>
             </form>
           </div>
-          <form onSubmit={this.finalScoreSubmit}>
-            <label htmlFor=""></label>
-            <button>My work is done here</button>
-          </form>
+          
         </div>
+        <form onSubmit={this.finalScoreSubmit} className={`finalScoreForm ${this.state.userName ? "" : "hidden"}`}>
+          <label htmlFor=""></label>
+          <button>Get on the Leaderboard</button>
+        </form>
+        <Leaderboard array={this.state.leaderboard}/>
       </div>
     );
   }
