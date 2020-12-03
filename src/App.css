@@ -164,6 +164,9 @@ label {
   background-color: #804A00;
 }
 
+
+
+
 @media (max-width: 870px) {
   .gameBoard {
     grid-template-columns: 1fr 1fr;
