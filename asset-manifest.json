@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/boris-ulanowicz-project-five/static/css/main.93474f13.chunk.css",
-    "main.js": "/boris-ulanowicz-project-five/static/js/main.281d43ab.chunk.js",
-    "main.js.map": "/boris-ulanowicz-project-five/static/js/main.281d43ab.chunk.js.map",
-    "runtime-main.js": "/boris-ulanowicz-project-five/static/js/runtime-main.544dc1f2.js",
-    "runtime-main.js.map": "/boris-ulanowicz-project-five/static/js/runtime-main.544dc1f2.js.map",
-    "static/js/2.5ca583e9.chunk.js": "/boris-ulanowicz-project-five/static/js/2.5ca583e9.chunk.js",
-    "static/js/2.5ca583e9.chunk.js.map": "/boris-ulanowicz-project-five/static/js/2.5ca583e9.chunk.js.map",
-    "static/js/3.0153bef0.chunk.js": "/boris-ulanowicz-project-five/static/js/3.0153bef0.chunk.js",
-    "static/js/3.0153bef0.chunk.js.map": "/boris-ulanowicz-project-five/static/js/3.0153bef0.chunk.js.map",
+    "main.css": "/boris-ulanowicz-project-five/static/css/main.592e6fe9.chunk.css",
+    "main.js": "/boris-ulanowicz-project-five/static/js/main.dacfcc5c.chunk.js",
+    "main.js.map": "/boris-ulanowicz-project-five/static/js/main.dacfcc5c.chunk.js.map",
+    "runtime-main.js": "/boris-ulanowicz-project-five/static/js/runtime-main.e72115bc.js",
+    "runtime-main.js.map": "/boris-ulanowicz-project-five/static/js/runtime-main.e72115bc.js.map",
+    "static/js/2.ad95b4b1.chunk.js": "/boris-ulanowicz-project-five/static/js/2.ad95b4b1.chunk.js",
+    "static/js/2.ad95b4b1.chunk.js.map": "/boris-ulanowicz-project-five/static/js/2.ad95b4b1.chunk.js.map",
+    "static/js/3.29617a39.chunk.js": "/boris-ulanowicz-project-five/static/js/3.29617a39.chunk.js",
+    "static/js/3.29617a39.chunk.js.map": "/boris-ulanowicz-project-five/static/js/3.29617a39.chunk.js.map",
     "index.html": "/boris-ulanowicz-project-five/index.html",
-    "static/css/main.93474f13.chunk.css.map": "/boris-ulanowicz-project-five/static/css/main.93474f13.chunk.css.map",
-    "static/js/2.5ca583e9.chunk.js.LICENSE.txt": "/boris-ulanowicz-project-five/static/js/2.5ca583e9.chunk.js.LICENSE.txt",
+    "static/css/main.592e6fe9.chunk.css.map": "/boris-ulanowicz-project-five/static/css/main.592e6fe9.chunk.css.map",
+    "static/js/2.ad95b4b1.chunk.js.LICENSE.txt": "/boris-ulanowicz-project-five/static/js/2.ad95b4b1.chunk.js.LICENSE.txt",
     "static/media/App.css": "/boris-ulanowicz-project-five/static/media/samuel-pereira-uf2nnANWa8Q-unsplash.bb6a1f62.jpg"
   },
   "entrypoints": [
-    "static/js/runtime-main.544dc1f2.js",
-    "static/js/2.5ca583e9.chunk.js",
-    "static/css/main.93474f13.chunk.css",
-    "static/js/main.281d43ab.chunk.js"
+    "static/js/runtime-main.e72115bc.js",
+    "static/js/2.ad95b4b1.chunk.js",
+    "static/css/main.592e6fe9.chunk.css",
+    "static/js/main.dacfcc5c.chunk.js"
   ]
 }
