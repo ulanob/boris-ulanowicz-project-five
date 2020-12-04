@@ -109,12 +109,12 @@ label {
 
 .userInput input, 
 .userInput button {
-  display: block;
   margin: 0 auto;
 }
 
 .userInput input {
   margin-top: 20px;
+  display: block;
 }
 
 .finalScoreForm {
@@ -128,7 +128,17 @@ label {
   display: none;
 }
 
-.answered {
+/* .answered {
+  pointer-events: none;
+} */
+
+.correct {
+  background-color: green;
+  pointer-events: none;
+}
+
+.incorrect {
+  background-color: red;
   pointer-events: none;
 }
 

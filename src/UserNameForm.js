@@ -3,7 +3,7 @@ import { Component } from 'react';
 class UserNameForm extends Component {
   render() {
     return(
-      <form className="userNameForm" action="">
+      <form className={`userNameForm ${this.props.name ? "hidden" : ""} `} action="">
         <label htmlFor="">Enter Your Name</label>
         <input
           // name for input, link to label

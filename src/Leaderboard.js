@@ -9,7 +9,9 @@ class Leaderboard extends Component {
       {
         this.props.array.map((entry)=>{
           return(
-            <p>{entry.name}: {entry.score}</p>
+            <p
+            key={entry.id}
+            >{entry.name}: {entry.score}</p>
 
           )
         })
