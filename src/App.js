@@ -155,7 +155,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="App wrapper">
         <img src={logo} alt="logo from the famous household game show 'Endangerment'" />
         <UserNameForm
           name={this.state.userName}

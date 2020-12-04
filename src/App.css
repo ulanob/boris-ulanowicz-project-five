@@ -24,6 +24,11 @@ span {
   line-height: inherit;
 }
 
+.wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 .App {
   min-height: 100vh;
   text-align: center;
@@ -126,6 +131,7 @@ label {
 
 .finalScoreForm {
   display: block;
+  margin: 0 auto;
 }
 .finalScoreForm button {
   margin-top: 20px;
