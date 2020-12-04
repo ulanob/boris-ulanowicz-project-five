@@ -2,20 +2,16 @@ import { Component } from 'react';
 
 class Leaderboard extends Component {
   render() {
-    return(
+    return (
       <div className="leaderboard">
-
-      <h2>Leaderboard</h2>
-      {
-        this.props.array.map((entry)=>{
-          return(
-            <p
-            key={entry.id}
-            >{entry.name}: {entry.score}</p>
-
-          )
-        })
-      }
+        <h2>Leaderboard</h2>
+        {
+          this.props.array.map((entry) => {
+            return (
+              <p key={entry.id}>{entry.name}: {entry.score}</p>
+            )
+          })
+        }
       </div>
     )
   }

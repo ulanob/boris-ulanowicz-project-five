@@ -5,11 +5,11 @@ class GameBoard extends Component {
     return (
       <div className={`gameBoard ${this.props.userName ? "" : "hidden"}`}>
         {
-          this.props.questionsArray.map((gameQuestion, i) => {
+          this.props.questionsArray.map( (gameQuestion, i) => {
             return (
               <div
                 key={gameQuestion.id}
-                onClick={() => {
+                onClick={ () => {
                   this.props.handleClick(i)
                 }}
                 className={gameQuestion.classString}

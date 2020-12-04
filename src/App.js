@@ -1,11 +1,10 @@
 import { Component } from 'react';
 import './App.css';
 import axios from 'axios';
+import firebase from './firebase.js';
 import logo from './assets/endangerment.png';
 import UserNameForm from './UserNameForm';
-// import UserAnswer from './UserAnswer';
 import GameBoard from './GameBoard.js';
-import firebase from './firebase.js';
 import Leaderboard from './Leaderboard.js';
 
 class App extends Component {
@@ -21,10 +20,9 @@ class App extends Component {
       currentQuestion: '',
       currentIndex: null,
       isBoxVisible: false,
-      leaderboard: [],
-      buttonDisplay: ''
+      buttonDisplay: '',
+      leaderboard: []
     }
-
   }
 
   componentDidMount() {
@@ -37,10 +35,8 @@ class App extends Component {
         count: 20
       }
     }).then((res) => {
-      let fixQuestionsArray = res.data;
-      // some question objects have a value of null, so changing them to 200
-      // fixQuestionsArray
-      const superFixedArray = fixQuestionsArray.map((object) => {
+      // some question objects in the response have a value of null, so I'm changing the value to 200 here:
+      const fixQuestionsArray = res.data.map((object) => {
         let objectValue = object.value
         if (object.value == null) {
           objectValue = 200
@@ -50,14 +46,12 @@ class App extends Component {
           classString: 'question'
         }
         return { ...object, ...newObject }
-
       })
       this.setState({
-        questionsArray: superFixedArray
+        questionsArray: fixQuestionsArray
       })
     })
-
-    // Connecting Firebase
+    // Firebase
     const dbRef = firebase.database().ref();
     dbRef.on('value', (data) => {
       const firebaseDataObj = data.val();
@@ -69,6 +63,7 @@ class App extends Component {
           name: firebaseDataObj[key].userName
         }
         processedScores.push(formattedObj)
+        // sorting users' scores:
         const sortedNames = processedScores.sort((a, b) => {
           return [b.score] - [a.score]
         })
@@ -84,10 +79,10 @@ class App extends Component {
       userNameInput: e.target.value
     })
   }
+
   takeUserName = () => {
     this.setState({
       userName: this.state.userNameInput.trim(),
-      
     })
   }
 
@@ -100,7 +95,6 @@ class App extends Component {
     })
   }
 
-
   handleInputChange = (e) => {
     this.setState({
       userAnswerInput: e.target.value,
@@ -112,9 +106,8 @@ class App extends Component {
     this.setState({
       userSubmittedAnswer: this.state.userAnswerInput.toLowerCase(),
     })
-    // how come it only updates after second click?
 
-    const userAnswer = this.state.userSubmittedAnswer;
+    const userAnswer = this.state.userSubmittedAnswer.toLowerCase();
 
     const actualAnswer = this.state.questionsArray[this.state.currentIndex].answer.toLowerCase();
 
@@ -122,13 +115,14 @@ class App extends Component {
 
     const questionValue = this.state.questionsArray[this.state.currentIndex].value
 
-    const questionsClone = [... this.state.questionsArray];
+    const questionsArrayClone = [... this.state.questionsArray];
 
-    console.log(userAnswer, actualAnswer);
+    // add to correct array, alert results, clear input and submitted answer state, hide submit button, add pointer-events: none to selected div
+    
     if (userAnswer !== '' && userAnswer == actualAnswer) {
-      // add to correct array
-      alert('correct!')
-      questionsClone[i].classString = "question correct";
+      // correct answer response
+      alert('Correct!')
+      questionsArrayClone[i].classString = "question correct";
       this.setState({
         userScore: this.state.userScore + questionValue,
         userAnswerInput: '',
@@ -136,9 +130,9 @@ class App extends Component {
         buttonDisplay: 'hidden'
       })
     } else if (userAnswer !== '' && userAnswer !== actualAnswer) {
-      questionsClone[i].classString = "question incorrect";
-      alert(`Bzzt! correct answer is: ${actualAnswer}`)
-      // add to incorrect array
+      // incorrect answer response
+      questionsArrayClone[i].classString = "question incorrect";
+      alert(`Bzzt! Correct answer is: ${actualAnswer}`)
       this.setState({
         userScore: this.state.userScore - questionValue,
         userAnswerInput: '',
@@ -158,6 +152,7 @@ class App extends Component {
     dbRef.push(userNameAndScore);
   }
 
+
   render() {
     return (
       <div className="App">
@@ -174,51 +169,49 @@ class App extends Component {
 
         <div className="playArea">
           <div className="userBooth" >
-            <p 
-            className={
+            <p className={
               `${this.state.isBoxVisible ? "" : "hidden"}`
             }
             >${this.state.userScore}</p>
-            
+
+            {/* h2 below greets the user first, then is recycled to display userName during gameplay */}
             <h2>{
-            this.state.userName ? this.state.userName : "Welcome to Endangerment! Now entering the studio is today's contestant: You!"
+              this.state.userName ? this.state.userName : "Welcome to Endangerment! Now entering the studio is today's contestant: You!"
             }</h2>
           </div>
 
           <div
             className={`userInput ${this.state.isBoxVisible ? "" : "hidden"}`}
           >
-            {/* add category and value here? */}
             <form onSubmit={(e) => {
               e.preventDefault();
               this.evaluate();
             }}>
-              <label htmlFor="">{this.state.currentQuestion}</label>
+              <label htmlFor="questionInput">{this.state.currentQuestion}</label>
               <input
+                id="questionInput"
+                name="questionInput"
                 placeholder="What is..."
                 type="text"
                 value={this.state.userAnswerInput}
                 onChange={(e) => {
                   this.handleInputChange(e);
-                }}
-              />
-              <button
-              className={this.state.buttonDisplay}
-              
+                }} />
+              <button type="submit" className={this.state.buttonDisplay}
               >Answer</button>
             </form>
           </div>
-
         </div>
-        <form onSubmit={this.finalScoreSubmit} className={`finalScoreForm ${this.state.userName ? "" : "hidden"}`}>
-          <label htmlFor=""></label>
+
+        <form 
+          onSubmit={this.finalScoreSubmit} 
+          className={`finalScoreForm ${this.state.userName ? "" : "hidden"}`}
+          >
           <button>Get on the Leaderboard!</button>
         </form>
         <Leaderboard array={this.state.leaderboard} />
       </div>
     );
-
   }
-
 }
 export default App;

@@ -2,13 +2,14 @@ import { Component } from 'react';
 
 class UserNameForm extends Component {
   render() {
-    return(
-      <form className={`userNameForm ${this.props.name ? "hidden" : ""} `} action="">
-        <label htmlFor="">Enter Your Name</label>
+    return (
+      <form className={`userNameForm ${this.props.name ? "hidden" : ""} `} action="" required>
+        <label htmlFor="nameInput">Enter Your Name</label>
         <input
-          // name for input, link to label
+          id="nameInput"
+          name="nameInput"
           type="text"
-          onChange={(e)=>{this.props.nameInput(e)}}
+          onChange={(e) => { this.props.nameInput(e) }}
         />
         <button onClick={(e) => {
           e.preventDefault();
