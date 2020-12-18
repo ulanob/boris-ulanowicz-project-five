@@ -118,7 +118,7 @@ class App extends Component {
     const questionsArrayClone = [... this.state.questionsArray];
 
     // add to correct array, alert results, clear input and submitted answer state, hide submit button, add pointer-events: none to selected div
-    
+
     if (userAnswer !== '' && userAnswer == actualAnswer) {
       // correct answer response
       alert('Correct!')
@@ -155,61 +155,65 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App wrapper">
-        <img src={logo} alt="logo from the famous household game show 'Endangerment'" />
-        <UserNameForm
-          name={this.state.userName}
-          nameInput={(e) => { this.handleNameInputChange(e) }}
-          takeUserName={this.takeUserName} />
-        <GameBoard
-          userName={this.state.userName}
-          questionsArray={this.state.questionsArray}
-          handleClick={(i) => { this.handleClick(i) }}
-        />
+      <div className="App">
+        <div className="wrapper">
+          <div className="studio">
+            <img src={logo} alt="logo from the famous household game show 'Endangerment'" />
+            <UserNameForm
+              name={this.state.userName}
+              nameInput={(e) => { this.handleNameInputChange(e) }}
+              takeUserName={this.takeUserName} />
+            <GameBoard
+              userName={this.state.userName}
+              questionsArray={this.state.questionsArray}
+              handleClick={(i) => { this.handleClick(i) }}
+            />
 
-        <div className="playArea">
-          <div className="userBooth" >
-            <p className={
-              `${this.state.isBoxVisible ? "" : "hidden"}`
-            }
-            >${this.state.userScore}</p>
+            <div className="playArea">
+              <div className="userBooth" >
+                <p className={
+                  `${this.state.isBoxVisible ? "" : "hidden"}`
+                }
+                >${this.state.userScore}</p>
 
-            {/* h2 below greets the user first, then is recycled to display userName during gameplay */}
-            <h2>{
-              this.state.userName ? this.state.userName : "Welcome to Endangerment! Now entering the studio is today's contestant: You!"
-            }</h2>
-          </div>
+                {/* h2 below greets the user first, then is recycled to display userName during gameplay */}
+                <h2>{
+                  this.state.userName ? this.state.userName : "Welcome to Endangerment! Now entering the studio is today's contestant: You!"
+                }</h2>
+              </div>
 
-          <div
-            className={`userInput ${this.state.isBoxVisible ? "" : "hidden"}`}
-          >
-            <form onSubmit={(e) => {
-              e.preventDefault();
-              this.evaluate();
-            }}>
-              <label htmlFor="questionInput">{this.state.currentQuestion}</label>
-              <input
-                id="questionInput"
-                name="questionInput"
-                placeholder="What is..."
-                type="text"
-                value={this.state.userAnswerInput}
-                onChange={(e) => {
-                  this.handleInputChange(e);
-                }} />
-              <button type="submit" className={this.state.buttonDisplay}
-              >Answer</button>
+              <div
+                className={`userInput ${this.state.isBoxVisible ? "" : "hidden"}`}
+              >
+                <form onSubmit={(e) => {
+                  e.preventDefault();
+                  this.evaluate();
+                }}>
+                  <label htmlFor="questionInput">{this.state.currentQuestion}</label>
+                  <input
+                    id="questionInput"
+                    name="questionInput"
+                    placeholder="What is..."
+                    type="text"
+                    value={this.state.userAnswerInput}
+                    onChange={(e) => {
+                      this.handleInputChange(e);
+                    }} />
+                  <button type="submit" className={this.state.buttonDisplay}
+                  >Answer</button>
+                </form>
+              </div>
+            </div>
+
+            <form
+              onSubmit={this.finalScoreSubmit}
+              className={`finalScoreForm ${this.state.userName ? "" : "hidden"}`}
+            >
+              <button>Get on the Leaderboard!</button>
             </form>
+            <Leaderboard array={this.state.leaderboard} />
           </div>
         </div>
-
-        <form 
-          onSubmit={this.finalScoreSubmit} 
-          className={`finalScoreForm ${this.state.userName ? "" : "hidden"}`}
-          >
-          <button>Get on the Leaderboard!</button>
-        </form>
-        <Leaderboard array={this.state.leaderboard} />
       </div>
     );
   }

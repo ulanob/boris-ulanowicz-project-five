@@ -28,21 +28,24 @@ span {
 .wrapper {
   max-width: 1600px;
   margin: 0 auto;
-  width: 100%;
+  width: 90%;
 }
 
 .App {
-  min-height: 100vh;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   background-image: url(./assets/samuel-pereira-uf2nnANWa8Q-unsplash.jpg);
   background-size: cover;
   background-attachment: fixed;
   background-repeat: no-repeat;
 }
-.App img {
+
+.studio {
+  min-height: 100vh;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.studio img {
   width: 60%;
   min-height: 100px;
   margin: 50px 0;
