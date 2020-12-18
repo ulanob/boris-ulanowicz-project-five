@@ -13,6 +13,7 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
 html {
   font-size: 62.5%;
   font-family: 'Libre Baskerville', serif;
+  background-color: black;
 }
 
 p {
@@ -25,8 +26,9 @@ span {
 }
 
 .wrapper {
-  max-width: 1200px;
+  max-width: 1600px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .App {
